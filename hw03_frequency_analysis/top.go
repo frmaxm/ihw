@@ -12,15 +12,14 @@ type wordWithTotal struct {
 
 func Top10(text string) []string {
 	words := strings.Fields(text)
-
 	wordTotals := make(map[string]int)
 	for _, word := range words {
 		wordTotals[word]++
 	}
 
 	wordWithTotalSlice := []wordWithTotal{}
-	for word, count := range wordTotals {
-		wordWithTotalSlice = append(wordWithTotalSlice, wordWithTotal{word, count})
+	for word, total := range wordTotals {
+		wordWithTotalSlice = append(wordWithTotalSlice, wordWithTotal{word, total})
 	}
 
 	sort.Slice(wordWithTotalSlice, func(i, j int) bool {
@@ -30,9 +29,9 @@ func Top10(text string) []string {
 		return wordWithTotalSlice[i].total > wordWithTotalSlice[j].total
 	})
 
-	var topWords []string
+	words = nil
 	for i := 0; i < 10 && i < len(wordWithTotalSlice); i++ {
-		topWords = append(topWords, wordWithTotalSlice[i].word)
+		words = append(words, wordWithTotalSlice[i].word)
 	}
-	return topWords
+	return words
 }
